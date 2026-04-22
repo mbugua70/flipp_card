@@ -4,6 +4,7 @@ import { CountdownOverlay } from './components/CountdownOverlay/CountdownOverlay
 import { GameBoard } from './components/GameBoard/GameBoard'
 import { GameHUD } from './components/GameHUD/GameHUD'
 import { SupportMeter } from './components/SupportMeter/SupportMeter'
+import { ResultModal } from './components/ResultModal/ResultModal'
 import { useGameEngine } from './hooks/useGameEngine'
 import type { Phase } from './types/game'
 import './App.css'
@@ -47,6 +48,8 @@ export default function App() {
       {phase === 'countdown' && (
         <CountdownOverlay count={SEQUENCE[countIndex]} />
       )}
+
+      <ResultModal isOpen={phase === 'won' || phase === 'lost'} />
 
       {(phase === 'preview' || phase === 'playing') && (
         <div className="game-screen">
