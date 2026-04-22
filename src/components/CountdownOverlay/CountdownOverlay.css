@@ -53,6 +53,16 @@
 }
 
 /* ── Responsive ──────────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1099px) {
+  .countdown-number {
+    font-size: 220px;
+    letter-spacing: -8px;
+  }
+  .countdown-number[data-go='true'] {
+    font-size: 160px;
+  }
+}
+
 @media (max-width: 480px) {
   .countdown-number {
     font-size: 110px;

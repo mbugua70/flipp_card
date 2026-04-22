@@ -101,6 +101,27 @@
 }
 
 /* ── Responsive ──────────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1099px) {
+  .hud {
+    padding: 16px 28px;
+  }
+  .hud-value {
+    font-size: 28px;
+  }
+  .hud-progress-bar {
+    width: 160px;
+  }
+  .hud-progress-current {
+    font-size: 26px;
+  }
+  .hud-right {
+    gap: 28px;
+  }
+  .hud-stat {
+    min-width: 72px;
+  }
+}
+
 @media (max-width: 600px) {
   .hud {
     padding: 10px 14px;

@@ -293,6 +293,40 @@
   100% { left: 220%; }
 }
 
+/* ── Tablet ──────────────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1099px) {
+  .start-content {
+    max-width: 520px;
+    gap: 40px;
+  }
+  .start-title {
+    font-size: 60px;
+    letter-spacing: -2.4px;
+  }
+  .start-subtitle {
+    font-size: 17px;
+  }
+  .start-logo {
+    width: 116px;
+    height: 146px;
+  }
+  .logo-card {
+    width: 88px;
+    height: 124px;
+  }
+  .start-btn {
+    padding: 22px 40px;
+    font-size: 19px;
+  }
+  .start-bests {
+    padding: 20px 44px;
+    gap: 36px;
+  }
+  .best-val {
+    font-size: 30px;
+  }
+}
+
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 480px) {
   .start-title {

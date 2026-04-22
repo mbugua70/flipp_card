@@ -12,6 +12,17 @@
     0 2px 12px rgba(124, 58, 237, 0.06);
 }
 
+/* Tablet (641–1099px): scale up from the base desktop */
+@media (min-width: 641px) and (max-width: 1099px) {
+  .game-board {
+    grid-template-columns: repeat(4, 120px);
+    grid-template-rows: repeat(3, 168px);
+    gap: 14px;
+    padding: 24px;
+    border-radius: 22px;
+  }
+}
+
 /* Mobile: smaller cards */
 @media (max-width: 600px) {
   .game-board {

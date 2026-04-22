@@ -195,7 +195,38 @@
   }
 }
 
-/* ── Responsive ──────────────────────────────────── */
+/* ── Tablet ──────────────────────────────────────── */
+@media (min-width: 641px) and (max-width: 1099px) {
+  .result-panel {
+    max-width: 480px;
+    padding: 48px 40px 40px;
+    gap: 28px;
+  }
+  .result-title {
+    font-size: 40px;
+  }
+  .result-icon {
+    font-size: 64px;
+  }
+  .result-stat-value {
+    font-size: 30px;
+  }
+  .result-stat {
+    padding: 18px 20px;
+  }
+  .result-best-value {
+    font-size: 22px;
+  }
+  .result-btn {
+    padding: 20px 28px;
+    font-size: 18px;
+  }
+  .result-btn-home {
+    width: 62px;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────────── */
 @media (max-width: 480px) {
   .result-overlay {
     padding: 16px;

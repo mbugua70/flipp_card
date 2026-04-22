@@ -41,6 +41,15 @@
   gap: 20px;
 }
 
+@media (min-width: 641px) and (max-width: 1099px) {
+  .game-stack {
+    gap: 28px;
+  }
+  .game-screen {
+    padding: 32px 24px;
+  }
+}
+
 @media (max-width: 600px) {
   .game-screen {
     padding: 16px 8px;

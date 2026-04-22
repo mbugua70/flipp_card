@@ -51,6 +51,15 @@
   color: var(--text-faint);
 }
 
+/* ── Tablet: scale up ring ───────────────────────── */
+@media (min-width: 641px) and (max-width: 1099px) {
+  .support-meter {
+    transform: scale(1.3);
+    transform-origin: center top;
+    margin-bottom: 18px; /* compensate for scale overflow */
+  }
+}
+
 /* ── Low support: pulsing glow ───────────────────── */
 .support-meter--low .support-svg {
   animation: support-pulse 1.4s ease-in-out infinite;
