@@ -7,15 +7,15 @@ const KEY_MUTED  = 'msq_muted'
 // Sound files must be placed in public/sounds/
 // One Howl instance per sound, created once at module level
 const sfx = {
-  flip:    new Howl({ src: ['/sounds/flip.mp3'],    volume: 0.6, preload: true }),
-  correct: new Howl({ src: ['/sounds/correct.mp3'], volume: 0.7, preload: true }),
-  wrong:   new Howl({ src: ['/sounds/wrong.mp3'],   volume: 0.7, preload: true }),
-  win:     new Howl({ src: ['/sounds/win.mp3'],     volume: 0.9, preload: true }),
-  lose:    new Howl({ src: ['/sounds/lose.mp3'],    volume: 0.9, preload: true }),
+  flip:    new Howl({ src: ['/sounds/flip.wav'],    volume: 0.6, preload: true }),
+  correct: new Howl({ src: ['/sounds/correct.wav'], volume: 0.7, preload: true }),
+  wrong:   new Howl({ src: ['/sounds/wrong.wav'],   volume: 0.7, preload: true }),
+  win:     new Howl({ src: ['/sounds/win.wav'],     volume: 0.9, preload: true }),
+  lose:    new Howl({ src: ['/sounds/lose.wav'],    volume: 0.9, preload: true }),
 }
 
 const music = new Howl({
-  src:     ['/sounds/music.mp3'],
+  src:     ['/sounds/music.wav'],
   loop:    true,
   volume:  0.18,
   preload: true,
