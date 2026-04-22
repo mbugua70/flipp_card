@@ -17,7 +17,7 @@ const BG_CARDS = [
 const PILLS = [
   { icon: '🃏', label: '12 Cards' },
   { icon: '🔢', label: 'Click 1 → 12' },
-  { icon: '🛡️', label: 'Support Meter' },
+  // { icon: '🛡️', label: 'Support Meter' },
 ]
 
 export function StartScreen({ onStart }: Props) {
@@ -40,7 +40,7 @@ export function StartScreen({ onStart }: Props) {
               '--rot':   `${c.rot}deg`,
               '--delay': `${c.delay}s`,
               '--dur':   `${c.dur}s`,
-            } as React.CSSProperties}
+            } as unknown as React.CSSProperties}
           />
         ))}
       </div>
