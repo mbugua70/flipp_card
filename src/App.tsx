@@ -6,6 +6,7 @@ import { GameHUD } from './components/GameHUD/GameHUD'
 import { SupportMeter } from './components/SupportMeter/SupportMeter'
 import { ResultModal } from './components/ResultModal/ResultModal'
 import { SoundControls } from './components/SoundControls/SoundControls'
+import { ConfirmLeave } from './components/ConfirmLeave/ConfirmLeave'
 import { useGameEngine } from './hooks/useGameEngine'
 import { useBestScore } from './hooks/useBestScore'
 import { useAudio } from './hooks/useAudio'
@@ -17,6 +18,7 @@ const SEQUENCE: (number | 'Go')[] = [3, 2, 1, 'Go']
 export default function App() {
   const [phase, setPhase] = useState<Phase>('start')
   const [countIndex, setCountIndex] = useState(0)
+  const [showConfirm, setShowConfirm] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const { save } = useBestScore()
@@ -56,6 +58,29 @@ export default function App() {
 
   return (
     <div className="app">
+      {/* Floating home button — visible during active game only */}
+      {(phase === 'preview' || phase === 'playing') && (
+        <div className="home-overlay">
+          <button
+            className="home-btn"
+            aria-label="Go home"
+            onClick={() => setShowConfirm(true)}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+          </button>
+        </div>
+      )}
+
+      {/* Confirm leave dialog */}
+      <ConfirmLeave
+        isOpen={showConfirm}
+        onCancel={() => setShowConfirm(false)}
+        onLeave={() => { setShowConfirm(false); setPhase('start') }}
+      />
+
       {/* Floating sound controls — visible on every screen except start */}
       {phase !== 'start' && (
         <div className="sound-overlay">
