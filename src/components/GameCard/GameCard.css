@@ -6,6 +6,8 @@
   position: relative;
   cursor: pointer;
   perspective: 1000px;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 /* Lift + glow on hover — only when the card is still face-down and idle */
