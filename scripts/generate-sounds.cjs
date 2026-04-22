@@ -149,6 +149,22 @@ function music() {
   })
 }
 
+// Countdown tick: crisp wood-block style click (~65 ms)
+function tick() {
+  const n = Math.round(SR * 0.065)
+  return Float32Array.from({ length: n }, (_, i) => {
+    const p   = i / n
+    const env = Math.pow(1 - p, 2.8) * 0.72
+    const t   = i / SR
+    // two partials for a wood-block feel
+    return env * (
+      Math.sin(2 * Math.PI * 820 * t) * 0.6 +
+      Math.sin(2 * Math.PI * 410 * t) * 0.4 +
+      (Math.random() * 2 - 1) * 0.05
+    )
+  })
+}
+
 // ── Run ───────────────────────────────────────────
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true })
 
@@ -159,4 +175,5 @@ writeWav('wrong.wav',   wrong())
 writeWav('win.wav',     win())
 writeWav('lose.wav',    lose())
 writeWav('music.wav',   music())
+writeWav('tick.wav',    tick())
 console.log('\nDone — files in public/sounds/')

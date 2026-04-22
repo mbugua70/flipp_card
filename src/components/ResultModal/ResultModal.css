@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(8, 8, 18, 0.78);
+  background: rgba(243, 240, 255, 0.72);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -17,14 +17,15 @@
   position: relative;
   width: 100%;
   max-width: 400px;
-  background: #0f0d1e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(124, 58, 237, 0.14);
   border-radius: var(--radius-xl);
   padding: 40px 32px 32px;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(139, 92, 246, 0.1),
-    0 24px 64px rgba(0, 0, 0, 0.6);
+    0 0 0 1px rgba(124, 58, 237, 0.08),
+    0 24px 64px rgba(124, 58, 237, 0.18),
+    0 4px 12px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -94,8 +95,8 @@
 }
 
 .result-stat {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #f8f5ff;
+  border: 1px solid rgba(124, 58, 237, 0.1);
   border-radius: var(--radius-md);
   padding: 14px 16px;
   display: flex;
@@ -120,7 +121,7 @@
 }
 
 .result-stat-value--accent {
-  background: linear-gradient(135deg, #c4b5fd, #8b5cf6);
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -133,8 +134,8 @@
   justify-content: center;
   gap: 20px;
   padding: 14px 20px;
-  background: rgba(139, 92, 246, 0.06);
-  border: 1px solid rgba(139, 92, 246, 0.15);
+  background: #f5f3ff;
+  border: 1px solid rgba(124, 58, 237, 0.16);
   border-radius: var(--radius-md);
 }
 
@@ -163,7 +164,7 @@
 .result-best-sep {
   width: 1px;
   height: 32px;
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(124, 58, 237, 0.18);
 }
 
 /* ── Action row ──────────────────────────────────── */
@@ -180,17 +181,17 @@
   justify-content: center;
   width: 52px;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #f5f3ff;
+  border: 1px solid rgba(124, 58, 237, 0.18);
   border-radius: var(--radius-md);
   color: var(--text-muted);
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.18);
-    color: var(--text);
+    background: #ede9fe;
+    border-color: rgba(124, 58, 237, 0.35);
+    color: var(--accent);
   }
 }
 

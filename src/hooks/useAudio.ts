@@ -12,6 +12,7 @@ const sfx = {
   wrong:   new Howl({ src: ['/sounds/wrong.wav'],   volume: 0.7, preload: true }),
   win:     new Howl({ src: ['/sounds/win.wav'],     volume: 0.9, preload: true }),
   lose:    new Howl({ src: ['/sounds/lose.wav'],    volume: 0.9, preload: true }),
+  tick:    new Howl({ src: ['/sounds/tick.wav'],    volume: 0.65, preload: true }),
 }
 
 const music = new Howl({
@@ -56,6 +57,7 @@ export function useAudio() {
   const playWrong   = useCallback(() => sfx.wrong.play(),   [])
   const playWin     = useCallback(() => sfx.win.play(),     [])
   const playLose    = useCallback(() => sfx.lose.play(),    [])
+  const playTick    = useCallback(() => sfx.tick.play(),    [])
 
   const startMusic = useCallback(() => {
     if (!music.playing()) music.play()
@@ -73,6 +75,7 @@ export function useAudio() {
     playWrong,
     playWin,
     playLose,
+    playTick,
     startMusic,
     stopMusic,
   }

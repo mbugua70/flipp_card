@@ -5,7 +5,17 @@
   border-radius: 14px;
   position: relative;
   cursor: pointer;
-  perspective: 1000px; /* depth for the 3D flip */
+  perspective: 1000px;
+}
+
+/* Lift + glow on hover — only when the card is still face-down and idle */
+.card:not([data-revealed]):hover .card-back {
+  box-shadow:
+    0 10px 30px rgba(46, 16, 101, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 /* ── Inner wrapper — this is what actually rotates ── */
@@ -28,39 +38,40 @@
   -webkit-backface-visibility: hidden;
 }
 
-/* ── Back face ───────────────────────────────────── */
+/* ── Back face — deep violet, clearly "face down" ─── */
 .card-back {
-  background: linear-gradient(145deg, #1a1440, #0f0c29);
-  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  background: linear-gradient(145deg, #2e1065, #4c1d95, #5b21b6);
+  border: 1.5px solid rgba(167, 139, 250, 0.22);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 6px 20px rgba(46, 16, 101, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Subtle inner border pattern */
+/* Visible diamond/diagonal pattern on dark back */
 .card-back-pattern {
   position: absolute;
   inset: 8px;
   border-radius: 8px;
-  border: 1px solid rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: repeating-linear-gradient(
     45deg,
     transparent,
     transparent 8px,
-    rgba(139, 92, 246, 0.03) 8px,
-    rgba(139, 92, 246, 0.03) 9px
+    rgba(255, 255, 255, 0.04) 8px,
+    rgba(255, 255, 255, 0.04) 9px
   );
 }
 
 /* ── Front face ──────────────────────────────────── */
 .card-front {
   transform: rotateY(180deg); /* pre-rotated — readable when inner hits 180deg */
-  background: linear-gradient(145deg, #1e1a3c, #160f38);
-  border: 1.5px solid rgba(139, 92, 246, 0.45);
+  background: linear-gradient(145deg, #6d28d9, #7c3aed, #8b5cf6);
+  border: 1.5px solid rgba(167, 139, 250, 0.5);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(139, 92, 246, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    0 4px 20px rgba(124, 58, 237, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .card-number {
@@ -70,37 +81,27 @@
   color: #fff;
   line-height: 1;
   user-select: none;
-  text-shadow: 0 2px 12px rgba(139, 92, 246, 0.5);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* ── State: correct ──────────────────────────────── */
 .card-inner[data-state='correct'] .card-front {
-  border-color: var(--green);
+  background: linear-gradient(145deg, #047857, #059669, #10b981);
+  border-color: rgba(16, 185, 129, 0.6);
   box-shadow:
-    0 0 0 1px rgba(16, 185, 129, 0.4),
-    0 0 28px rgba(16, 185, 129, 0.45),
-    0 4px 20px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-}
-
-.card-inner[data-state='correct'] .card-number {
-  color: var(--green);
-  text-shadow: 0 2px 12px rgba(16, 185, 129, 0.6);
+    0 0 0 2px rgba(5, 150, 105, 0.35),
+    0 4px 24px rgba(5, 150, 105, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 /* ── State: wrong ────────────────────────────────── */
 .card-inner[data-state='wrong'] .card-front {
-  border-color: var(--red);
+  background: linear-gradient(145deg, #b91c1c, #dc2626, #ef4444);
+  border-color: rgba(220, 38, 38, 0.6);
   box-shadow:
-    0 0 0 1px rgba(239, 68, 68, 0.4),
-    0 0 28px rgba(239, 68, 68, 0.45),
-    0 4px 20px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-}
-
-.card-inner[data-state='wrong'] .card-number {
-  color: var(--red);
-  text-shadow: 0 2px 12px rgba(239, 68, 68, 0.6);
+    0 0 0 2px rgba(220, 38, 38, 0.35),
+    0 4px 24px rgba(220, 38, 38, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 /* ── Responsive ──────────────────────────────────── */

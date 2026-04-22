@@ -5,6 +5,7 @@ import { GameBoard } from './components/GameBoard/GameBoard'
 import { GameHUD } from './components/GameHUD/GameHUD'
 import { SupportMeter } from './components/SupportMeter/SupportMeter'
 import { ResultModal } from './components/ResultModal/ResultModal'
+import { SoundControls } from './components/SoundControls/SoundControls'
 import { useGameEngine } from './hooks/useGameEngine'
 import { useBestScore } from './hooks/useBestScore'
 import { useAudio } from './hooks/useAudio'
@@ -19,7 +20,7 @@ export default function App() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const { save } = useBestScore()
-  const { volume, isMuted, setVolume, toggleMute, playFlip, playCorrect, playWrong, playWin, playLose, startMusic, stopMusic } = useAudio()
+  const { volume, isMuted, setVolume, toggleMute, playFlip, playCorrect, playWrong, playWin, playLose, playTick, startMusic, stopMusic } = useAudio()
   const { cards, score, support, elapsedSeconds, expectedNext, mistakes, handleCardClick } = useGameEngine(phase, setPhase, {
     playFlip, playCorrect, playWrong, playWin, playLose,
   })
@@ -36,29 +37,38 @@ export default function App() {
     if (phase === 'start' || phase === 'won' || phase === 'lost') stopMusic()
   }, [phase])
 
-  // Countdown tick: 3 → 2 → 1 → Go → preview
+  // Countdown: 3 → 2 → 1 → Go → preview, with a tick sound on each step
   useEffect(() => {
     if (phase !== 'countdown') return
 
     setCountIndex(0)
+    playTick()   // tick for '3'
     let i = 0
 
-    const tick = () => {
+    const advance = () => {
       i++
       if (i < SEQUENCE.length) {
         setCountIndex(i)
-        timerRef.current = setTimeout(tick, 1000)
+        playTick() // tick for 2, 1, Go
+        timerRef.current = setTimeout(advance, 1000)
       } else {
         timerRef.current = setTimeout(() => setPhase('preview'), 600)
       }
     }
 
-    timerRef.current = setTimeout(tick, 1000)
+    timerRef.current = setTimeout(advance, 1000)
     return () => { if (timerRef.current) clearTimeout(timerRef.current) }
-  }, [phase])
+  }, [phase, playTick])
 
   return (
     <div className="app">
+      {/* Floating sound controls — visible on every screen except start */}
+      {phase !== 'start' && (
+        <div className="sound-overlay">
+          <SoundControls volume={volume} isMuted={isMuted} setVolume={setVolume} toggleMute={toggleMute} />
+        </div>
+      )}
+
       {phase === 'start' && (
         <StartScreen onStart={() => setPhase('countdown')} />
       )}
@@ -86,10 +96,6 @@ export default function App() {
               elapsedSeconds={elapsedSeconds}
               expectedNext={expectedNext}
               mistakes={mistakes}
-              volume={volume}
-              isMuted={isMuted}
-              setVolume={setVolume}
-              toggleMute={toggleMute}
             />
             <div className="game-support">
               <SupportMeter support={support} />
