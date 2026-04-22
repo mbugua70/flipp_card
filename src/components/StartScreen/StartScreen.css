@@ -1,0 +1,313 @@
+/* ── Layout ──────────────────────────────────────── */
+.start-screen {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 32px 20px;
+}
+
+/* ── Ambient glow ────────────────────────────────── */
+.start-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 75% 55% at 50% 44%,
+    rgba(109, 40, 217, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Floating background cards ───────────────────── */
+.start-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.start-bg-card {
+  position: absolute;
+  width: 54px;
+  height: 76px;
+  border-radius: 10px;
+  background: linear-gradient(
+    145deg,
+    rgba(109, 40, 217, 0.07),
+    rgba(139, 92, 246, 0.05)
+  );
+  border: 1px solid rgba(139, 92, 246, 0.14);
+  transform: rotate(var(--rot));
+  animation: bg-float var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 5px;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+  }
+}
+
+@keyframes bg-float {
+  0%, 100% { transform: rotate(var(--rot)) translateY(0px); }
+  50%       { transform: rotate(calc(var(--rot) + 3deg)) translateY(-20px); }
+}
+
+/* ── Main content stack ──────────────────────────── */
+.start-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* ── Card-stack logo ─────────────────────────────── */
+.start-logo {
+  position: relative;
+  width: 92px;
+  height: 116px;
+}
+
+.logo-card {
+  position: absolute;
+  width: 70px;
+  height: 98px;
+  border-radius: 12px;
+}
+
+.logo-card--left {
+  top: 16px;
+  left: 0;
+  transform: rotate(-14deg);
+  background: linear-gradient(145deg, #1e1b4b, #2d1f6e);
+  border: 1.5px solid rgba(139, 92, 246, 0.2);
+  opacity: 0.55;
+}
+
+.logo-card--right {
+  top: 16px;
+  right: 0;
+  transform: rotate(14deg);
+  background: linear-gradient(145deg, #1e1b4b, #2d1f6e);
+  border: 1.5px solid rgba(139, 92, 246, 0.2);
+  opacity: 0.55;
+}
+
+.logo-card--center {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(145deg, #5b21b6, #7c3aed, #8b5cf6);
+  border: 1.5px solid rgba(167, 139, 250, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(139, 92, 246, 0.25),
+    0 12px 40px rgba(109, 40, 217, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.logo-q {
+  font-size: 38px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Title ───────────────────────────────────────── */
+.start-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.start-title {
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: -1.8px;
+  line-height: 1.06;
+  color: var(--text);
+  margin: 0;
+}
+
+.title-accent {
+  background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 40%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.start-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+
+  & strong {
+    color: var(--accent-light);
+    font-weight: 700;
+  }
+}
+
+/* ── Info pills ──────────────────────────────────── */
+.start-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.pill-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ── Best scores ─────────────────────────────────── */
+.start-bests {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 36px;
+  background: rgba(139, 92, 246, 0.07);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.best-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
+.best-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+}
+
+.best-val {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--accent-light);
+}
+
+.best-sep {
+  width: 1px;
+  height: 38px;
+  background: rgba(139, 92, 246, 0.22);
+  flex-shrink: 0;
+}
+
+/* ── Start button ────────────────────────────────── */
+.start-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 32px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #fff;
+  background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #6d28d9 100%);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(139, 92, 246, 0.5),
+    0 8px 32px rgba(109, 40, 217, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+  animation: btn-glow-pulse 3s ease-in-out infinite;
+}
+
+/* Shimmer sweep */
+.start-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.13) 50%,
+    transparent 80%
+  );
+  animation: btn-shimmer 3.5s ease-in-out 1.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes btn-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.5),
+      0 8px 32px rgba(109, 40, 217, 0.45),
+      0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.75),
+      0 8px 52px rgba(109, 40, 217, 0.65),
+      0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@keyframes btn-shimmer {
+  0%   { left: -120%; }
+  100% { left: 220%; }
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 480px) {
+  .start-title {
+    font-size: 36px;
+    letter-spacing: -1.2px;
+  }
+
+  .start-content {
+    gap: 24px;
+  }
+
+  .start-bg-card {
+    width: 42px;
+    height: 60px;
+  }
+
+  .start-bests {
+    padding: 14px 24px;
+    gap: 20px;
+  }
+}
