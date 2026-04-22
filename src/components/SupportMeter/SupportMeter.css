@@ -51,12 +51,21 @@
   color: var(--text-faint);
 }
 
+/* ── Large desktop: scale up ring ────────────────── */
+@media (min-width: 1440px) {
+  .support-meter {
+    transform: scale(1.5);
+    transform-origin: center top;
+    margin-bottom: 28px;
+  }
+}
+
 /* ── Tablet: scale up ring ───────────────────────── */
 @media (min-width: 641px) and (max-width: 1099px) {
   .support-meter {
     transform: scale(1.3);
     transform-origin: center top;
-    margin-bottom: 18px; /* compensate for scale overflow */
+    margin-bottom: 18px;
   }
 }
 

@@ -293,6 +293,44 @@
   100% { left: 220%; }
 }
 
+/* ── Large desktop (1440px+) ─────────────────────── */
+@media (min-width: 1440px) {
+  .start-content {
+    max-width: 600px;
+    gap: 48px;
+  }
+  .start-title {
+    font-size: 76px;
+    letter-spacing: -3px;
+  }
+  .start-subtitle {
+    font-size: 18px;
+  }
+  .start-logo {
+    width: 136px;
+    height: 170px;
+  }
+  .logo-card {
+    width: 104px;
+    height: 146px;
+  }
+  .start-btn {
+    padding: 24px 48px;
+    font-size: 20px;
+  }
+  .start-bests {
+    padding: 22px 52px;
+    gap: 44px;
+  }
+  .best-val {
+    font-size: 34px;
+  }
+  .pill {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+}
+
 /* ── Tablet ──────────────────────────────────────── */
 @media (min-width: 641px) and (max-width: 1099px) {
   .start-content {

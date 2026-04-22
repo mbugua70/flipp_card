@@ -12,6 +12,17 @@
     0 2px 12px rgba(124, 58, 237, 0.06);
 }
 
+/* Large desktop: 1440px+ (1920×1080, 1440p) */
+@media (min-width: 1440px) {
+  .game-board {
+    grid-template-columns: repeat(4, 140px);
+    grid-template-rows: repeat(3, 196px);
+    gap: 16px;
+    padding: 28px;
+    border-radius: 24px;
+  }
+}
+
 /* Tablet (641–1099px): scale up from the base desktop */
 @media (min-width: 641px) and (max-width: 1099px) {
   .game-board {

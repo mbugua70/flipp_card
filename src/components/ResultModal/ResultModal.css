@@ -195,6 +195,40 @@
   }
 }
 
+/* ── Large desktop ───────────────────────────────── */
+@media (min-width: 1440px) {
+  .result-panel {
+    max-width: 520px;
+    padding: 56px 48px 48px;
+    gap: 32px;
+  }
+  .result-title {
+    font-size: 44px;
+  }
+  .result-icon {
+    font-size: 72px;
+  }
+  .result-stat-value {
+    font-size: 34px;
+  }
+  .result-stat {
+    padding: 20px 24px;
+  }
+  .result-stat-label {
+    font-size: 11px;
+  }
+  .result-best-value {
+    font-size: 24px;
+  }
+  .result-btn {
+    padding: 22px 32px;
+    font-size: 19px;
+  }
+  .result-btn-home {
+    width: 68px;
+  }
+}
+
 /* ── Tablet ──────────────────────────────────────── */
 @media (min-width: 641px) and (max-width: 1099px) {
   .result-panel {
