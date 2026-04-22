@@ -63,6 +63,16 @@
   }
 }
 
+@media (min-width: 2400px) {
+  .countdown-number {
+    font-size: 360px;
+    letter-spacing: -14px;
+  }
+  .countdown-number[data-go='true'] {
+    font-size: 280px;
+  }
+}
+
 @media (min-width: 1440px) {
   .countdown-number {
     font-size: 260px;

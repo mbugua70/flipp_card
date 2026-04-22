@@ -23,6 +23,17 @@
   }
 }
 
+/* 2K and above: 2560×1440+ */
+@media (min-width: 2400px) {
+  .game-board {
+    grid-template-columns: repeat(4, 180px);
+    grid-template-rows: repeat(3, 252px);
+    gap: 20px;
+    padding: 32px;
+    border-radius: 28px;
+  }
+}
+
 /* Large desktop: 1440px+ (1920×1080, 1440p) */
 @media (min-width: 1440px) {
   .game-board {

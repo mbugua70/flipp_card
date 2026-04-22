@@ -229,6 +229,40 @@
   }
 }
 
+/* ── 2K ──────────────────────────────────────────── */
+@media (min-width: 2400px) {
+  .result-panel {
+    max-width: 620px;
+    padding: 64px 56px 56px;
+    gap: 36px;
+  }
+  .result-title {
+    font-size: 52px;
+  }
+  .result-icon {
+    font-size: 84px;
+  }
+  .result-stat-value {
+    font-size: 42px;
+  }
+  .result-stat {
+    padding: 24px 28px;
+  }
+  .result-stat-label {
+    font-size: 13px;
+  }
+  .result-best-value {
+    font-size: 28px;
+  }
+  .result-btn {
+    padding: 26px 40px;
+    font-size: 22px;
+  }
+  .result-btn-home {
+    width: 78px;
+  }
+}
+
 /* ── Large desktop ───────────────────────────────── */
 @media (min-width: 1440px) {
   .result-panel {

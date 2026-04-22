@@ -60,6 +60,15 @@
   }
 }
 
+/* ── 2K ──────────────────────────────────────────── */
+@media (min-width: 2400px) {
+  .support-meter {
+    transform: scale(1.8);
+    transform-origin: center top;
+    margin-bottom: 36px;
+  }
+}
+
 /* ── Large desktop: scale up ring ────────────────── */
 @media (min-width: 1440px) {
   .support-meter {

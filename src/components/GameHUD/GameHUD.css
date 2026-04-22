@@ -101,6 +101,34 @@
 }
 
 /* ── Responsive ──────────────────────────────────── */
+@media (min-width: 2400px) {
+  .hud {
+    padding: 22px 38px;
+  }
+  .hud-value {
+    font-size: 40px;
+  }
+  .hud-label {
+    font-size: 13px;
+  }
+  .hud-progress-bar {
+    width: 240px;
+    height: 6px;
+  }
+  .hud-progress-current {
+    font-size: 36px;
+  }
+  .hud-progress-text {
+    font-size: 17px;
+  }
+  .hud-right {
+    gap: 40px;
+  }
+  .hud-stat {
+    min-width: 100px;
+  }
+}
+
 @media (min-width: 960px) and (max-width: 1200px) and (min-height: 1500px) {
   .hud {
     padding: 20px 34px;
