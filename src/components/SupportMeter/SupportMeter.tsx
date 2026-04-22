@@ -34,7 +34,7 @@ export function SupportMeter({ support, size = 80, showLabel = true }: Props) {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
+          stroke="rgba(124,58,237,0.12)"
           strokeWidth={stroke}
         />
 

@@ -82,7 +82,7 @@
   width: 120px;
   height: 4px;
   border-radius: 100px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(124, 58, 237, 0.12);
   overflow: hidden;
 }
 
@@ -101,21 +101,41 @@
 }
 
 /* ── Responsive ──────────────────────────────────── */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .hud {
-    padding: 0 16px;
-    height: 56px;
+    padding: 10px 14px;
   }
-
   .hud-value {
-    font-size: 18px;
+    font-size: 19px;
   }
-
   .hud-progress-bar {
     width: 80px;
   }
-
   .hud-right {
-    gap: 16px;
+    gap: 14px;
+  }
+  .hud-stat {
+    min-width: 48px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hud {
+    padding: 8px 10px;
+  }
+  .hud-value {
+    font-size: 16px;
+  }
+  .hud-progress-current {
+    font-size: 16px;
+  }
+  .hud-progress-bar {
+    width: 60px;
+  }
+  .hud-right {
+    gap: 10px;
+  }
+  .hud-stat {
+    min-width: 36px;
   }
 }

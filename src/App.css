@@ -5,12 +5,21 @@
   position: relative;
 }
 
-/* Floating sound controls — top-right corner, above all content */
+/* Floating sound controls — top-right corner */
 .sound-overlay {
   position: fixed;
-  top: 16px;
-  right: 20px;
+  top: 20px;
+  right: 24px;
   z-index: 100;
+}
+
+@media (max-width: 600px) {
+  .sound-overlay {
+    top: auto;
+    bottom: 24px;
+    right: 50%;
+    transform: translateX(50%);
+  }
 }
 
 /* Full-screen centered container for the game */
@@ -25,17 +34,28 @@
     var(--bg);
 }
 
-/* HUD + support meter + board stacked — width matches the board including its padding */
+/* Width driven by the board child — no explicit value needed */
 .game-stack {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 476px;  /* 4×100 cards + 3×12 gaps + 2×20 board padding */
 }
 
 @media (max-width: 600px) {
+  .game-screen {
+    padding: 16px 8px;
+  }
   .game-stack {
-    width: 340px; /* 4×72 cards + 3×8 gaps + 2×14 board padding */
+    gap: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-screen {
+    padding: 12px 6px;
+  }
+  .game-stack {
+    gap: 10px;
   }
 }
 

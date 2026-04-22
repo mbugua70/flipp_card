@@ -195,6 +195,37 @@
   }
 }
 
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 480px) {
+  .result-overlay {
+    padding: 16px;
+    align-items: flex-end;
+  }
+  .result-panel {
+    padding: 28px 20px 20px;
+    border-radius: var(--radius-lg);
+    gap: 16px;
+    max-height: 92svh;
+    overflow-y: auto;
+  }
+  .result-title {
+    font-size: 26px;
+  }
+  .result-icon {
+    font-size: 42px;
+  }
+  .result-stat-value {
+    font-size: 20px;
+  }
+  .result-bests {
+    padding: 12px 16px;
+    gap: 14px;
+  }
+  .result-best-value {
+    font-size: 16px;
+  }
+}
+
 /* Play Again button */
 .result-btn {
   flex: 1;

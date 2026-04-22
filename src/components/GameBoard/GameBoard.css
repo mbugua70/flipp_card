@@ -12,11 +12,23 @@
     0 2px 12px rgba(124, 58, 237, 0.06);
 }
 
+/* Mobile: smaller cards */
 @media (max-width: 600px) {
   .game-board {
     grid-template-columns: repeat(4, 72px);
     grid-template-rows: repeat(3, 100px);
     gap: 8px;
     padding: 14px;
+    border-radius: var(--radius-md);
+  }
+}
+
+/* Very small phones (≤ 380px): shrink further to fit 320px+ screens */
+@media (max-width: 380px) {
+  .game-board {
+    grid-template-columns: repeat(4, 58px);
+    grid-template-rows: repeat(3, 82px);
+    gap: 6px;
+    padding: 10px;
   }
 }
