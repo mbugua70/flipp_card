@@ -41,6 +41,16 @@
   gap: 20px;
 }
 
+/* Portrait desktop: use the full height generously */
+@media (min-width: 960px) and (max-width: 1200px) and (min-height: 1500px) {
+  .game-stack {
+    gap: 52px;
+  }
+  .game-screen {
+    padding: 100px 24px;
+  }
+}
+
 @media (min-width: 1440px) {
   .game-stack {
     gap: 32px;

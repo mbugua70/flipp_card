@@ -105,6 +105,21 @@
 }
 
 /* ── Responsive ──────────────────────────────────── */
+@media (min-width: 960px) and (max-width: 1200px) and (min-height: 1500px) {
+  .card {
+    width: 160px;
+    height: 224px;
+    border-radius: 22px;
+  }
+  .card-face {
+    border-radius: 22px;
+  }
+  .card-number {
+    font-size: 72px;
+    letter-spacing: -2px;
+  }
+}
+
 @media (min-width: 1440px) {
   .card {
     width: 140px;

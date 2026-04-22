@@ -195,6 +195,40 @@
   }
 }
 
+/* ── Portrait desktop ────────────────────────────── */
+@media (min-width: 960px) and (max-width: 1200px) and (min-height: 1500px) {
+  .result-panel {
+    max-width: 580px;
+    padding: 60px 52px 52px;
+    gap: 36px;
+  }
+  .result-title {
+    font-size: 52px;
+  }
+  .result-icon {
+    font-size: 80px;
+  }
+  .result-stat-value {
+    font-size: 38px;
+  }
+  .result-stat {
+    padding: 24px 28px;
+  }
+  .result-stat-label {
+    font-size: 12px;
+  }
+  .result-best-value {
+    font-size: 28px;
+  }
+  .result-btn {
+    padding: 24px 36px;
+    font-size: 20px;
+  }
+  .result-btn-home {
+    width: 74px;
+  }
+}
+
 /* ── Large desktop ───────────────────────────────── */
 @media (min-width: 1440px) {
   .result-panel {

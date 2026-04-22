@@ -51,6 +51,15 @@
   color: var(--text-faint);
 }
 
+/* ── Portrait desktop ────────────────────────────── */
+@media (min-width: 960px) and (max-width: 1200px) and (min-height: 1500px) {
+  .support-meter {
+    transform: scale(2.0);
+    transform-origin: center top;
+    margin-bottom: 52px;
+  }
+}
+
 /* ── Large desktop: scale up ring ────────────────── */
 @media (min-width: 1440px) {
   .support-meter {
