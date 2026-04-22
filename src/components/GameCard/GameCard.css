@@ -5,6 +5,15 @@
   border-radius: 14px;
   position: relative;
   cursor: pointer;
+  perspective: 1000px; /* depth for the 3D flip */
+}
+
+/* ── Inner wrapper — this is what actually rotates ── */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d; /* keeps children in 3D space */
 }
 
 /* ── Shared face styles ──────────────────────────── */
@@ -15,6 +24,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  backface-visibility: hidden;  /* hide face when rotated away */
+  -webkit-backface-visibility: hidden;
 }
 
 /* ── Back face ───────────────────────────────────── */
@@ -43,6 +54,7 @@
 
 /* ── Front face ──────────────────────────────────── */
 .card-front {
+  transform: rotateY(180deg); /* pre-rotated — readable when inner hits 180deg */
   background: linear-gradient(145deg, #1e1a3c, #160f38);
   border: 1.5px solid rgba(139, 92, 246, 0.45);
   box-shadow:
@@ -59,6 +71,36 @@
   line-height: 1;
   user-select: none;
   text-shadow: 0 2px 12px rgba(139, 92, 246, 0.5);
+}
+
+/* ── State: correct ──────────────────────────────── */
+.card-inner[data-state='correct'] .card-front {
+  border-color: var(--green);
+  box-shadow:
+    0 0 0 1px rgba(16, 185, 129, 0.4),
+    0 0 28px rgba(16, 185, 129, 0.45),
+    0 4px 20px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.card-inner[data-state='correct'] .card-number {
+  color: var(--green);
+  text-shadow: 0 2px 12px rgba(16, 185, 129, 0.6);
+}
+
+/* ── State: wrong ────────────────────────────────── */
+.card-inner[data-state='wrong'] .card-front {
+  border-color: var(--red);
+  box-shadow:
+    0 0 0 1px rgba(239, 68, 68, 0.4),
+    0 0 28px rgba(239, 68, 68, 0.45),
+    0 4px 20px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.card-inner[data-state='wrong'] .card-number {
+  color: var(--red);
+  text-shadow: 0 2px 12px rgba(239, 68, 68, 0.6);
 }
 
 /* ── Responsive ──────────────────────────────────── */
