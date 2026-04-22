@@ -109,9 +109,7 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
           timeoutRef.current = setTimeout(() => setPhase('won'), 600)
         }
       } else {
-        // Penalty shrinks the further into the sequence the player got
-        const penalty = Math.max(10, 20 - Math.floor((expectedNext - 1) / 12 * 10))
-        const newSupport = Math.max(0, support - penalty)
+        const newSupport = Math.max(0, support - 10)
 
         setState(s => ({
           ...s,

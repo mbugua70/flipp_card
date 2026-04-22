@@ -1,0 +1,125 @@
+/* ── HUD bar ─────────────────────────────────────── */
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+  background: rgba(8, 8, 18, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Individual stat block ───────────────────────── */
+.hud-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 64px;
+}
+
+.hud-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+}
+
+.hud-value {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.hud-value--mistakes {
+  color: var(--red);
+}
+
+.hud-value--time {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* ── Center: progress counter + bar ─────────────── */
+.hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-progress-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.hud-progress-current {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.hud-progress-sep {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.hud-progress-total {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Progress bar */
+.hud-progress-bar {
+  width: 120px;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent-light));
+  transition: width 0.4s ease;
+}
+
+/* ── Right group ─────────────────────────────────── */
+.hud-right {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 480px) {
+  .hud {
+    padding: 0 16px;
+    height: 56px;
+  }
+
+  .hud-value {
+    font-size: 18px;
+  }
+
+  .hud-progress-bar {
+    width: 80px;
+  }
+
+  .hud-right {
+    gap: 16px;
+  }
+}

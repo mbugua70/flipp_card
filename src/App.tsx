@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { StartScreen } from './components/StartScreen/StartScreen'
 import { CountdownOverlay } from './components/CountdownOverlay/CountdownOverlay'
 import { GameBoard } from './components/GameBoard/GameBoard'
+import { GameHUD } from './components/GameHUD/GameHUD'
 import { useGameEngine } from './hooks/useGameEngine'
 import type { Phase } from './types/game'
 import './App.css'
@@ -13,7 +14,7 @@ export default function App() {
   const [countIndex, setCountIndex] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const { cards, handleCardClick } = useGameEngine(phase, setPhase)
+  const { cards, score, support, elapsedSeconds, expectedNext, mistakes, handleCardClick } = useGameEngine(phase, setPhase)
 
   // Countdown tick: 3 → 2 → 1 → Go → preview
   useEffect(() => {
@@ -47,9 +48,18 @@ export default function App() {
       )}
 
       {(phase === 'preview' || phase === 'playing') && (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100svh' }}>
-          <GameBoard cards={cards} onCardClick={handleCardClick} />
-        </div>
+        <>
+          <GameHUD
+            score={score}
+            support={support}
+            elapsedSeconds={elapsedSeconds}
+            expectedNext={expectedNext}
+            mistakes={mistakes}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100svh', paddingTop: 64 }}>
+            <GameBoard cards={cards} onCardClick={handleCardClick} />
+          </div>
+        </>
       )}
     </div>
   )
