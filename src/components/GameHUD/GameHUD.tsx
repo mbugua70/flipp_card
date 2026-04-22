@@ -1,9 +1,7 @@
-import { SupportMeter } from '../SupportMeter/SupportMeter'
 import './GameHUD.css'
 
 interface Props {
   score:          number
-  support:        number
   elapsedSeconds: number
   expectedNext:   number
   mistakes:       number
@@ -15,12 +13,11 @@ function formatTime(seconds: number): string {
   return `${m}:${s}`
 }
 
-export function GameHUD({ score, support, elapsedSeconds, expectedNext, mistakes }: Props) {
+export function GameHUD({ score, elapsedSeconds, expectedNext, mistakes }: Props) {
   const progress = expectedNext - 1  // cards correctly found so far
 
   return (
     <div className="hud">
-      <SupportMeter support={support} size={52} showLabel={false} />
 
       <div className="hud-stat">
         <span className="hud-label">Score</span>

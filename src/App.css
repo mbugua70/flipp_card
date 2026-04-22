@@ -14,9 +14,15 @@
   padding: 24px 20px;
 }
 
-/* HUD + board stacked, HUD stretches to board width */
+/* HUD + support meter + board stacked */
 .game-stack {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+/* Support meter centered between HUD and board */
+.game-support {
+  display: flex;
+  justify-content: center;
 }

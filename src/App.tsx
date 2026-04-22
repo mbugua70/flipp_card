@@ -3,6 +3,7 @@ import { StartScreen } from './components/StartScreen/StartScreen'
 import { CountdownOverlay } from './components/CountdownOverlay/CountdownOverlay'
 import { GameBoard } from './components/GameBoard/GameBoard'
 import { GameHUD } from './components/GameHUD/GameHUD'
+import { SupportMeter } from './components/SupportMeter/SupportMeter'
 import { useGameEngine } from './hooks/useGameEngine'
 import type { Phase } from './types/game'
 import './App.css'
@@ -52,11 +53,13 @@ export default function App() {
           <div className="game-stack">
             <GameHUD
               score={score}
-              support={support}
               elapsedSeconds={elapsedSeconds}
               expectedNext={expectedNext}
               mistakes={mistakes}
             />
+            <div className="game-support">
+              <SupportMeter support={support} />
+            </div>
             <GameBoard cards={cards} onCardClick={handleCardClick} />
           </div>
         </div>
