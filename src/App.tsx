@@ -1,30 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { StartScreen } from './components/StartScreen/StartScreen'
 import { CountdownOverlay } from './components/CountdownOverlay/CountdownOverlay'
-import { GameCard } from './components/GameCard/GameCard'
-import type { CardState } from './types/game'
+import { GameBoard } from './components/GameBoard/GameBoard'
+import type { Card } from './types/game'
+import { shuffle } from './utils/shuffle'
 import './App.css'
 
 export type Phase = 'start' | 'countdown' | 'preview' | 'playing' | 'won' | 'lost'
 
-const STATES: CardState[] = ['idle', 'correct', 'wrong']
-
-function FlipTest() {
-  const [flipped, setFlipped] = useState(false)
-  const [stateIdx, setStateIdx] = useState(0)
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 40, alignItems: 'flex-start' }}>
-      <GameCard
-        card={{ id: 7, isRevealed: flipped, state: STATES[stateIdx] }}
-        onClick={() => setFlipped(f => !f)}
-      />
-      <button
-        onClick={() => setStateIdx(i => (i + 1) % STATES.length)}
-        style={{ color: 'white', padding: '8px 16px', background: '#333', borderRadius: 8, cursor: 'pointer' }}
-      >
-        State: {STATES[stateIdx]}
-      </button>
-    </div>
+function createCards(): Card[] {
+  return shuffle(
+    Array.from({ length: 12 }, (_, i) => ({
+      id: i + 1,
+      isRevealed: false,
+      state: 'idle' as const,
+    }))
   )
 }
 
@@ -33,11 +23,13 @@ const SEQUENCE: (number | 'Go')[] = [3, 2, 1, 'Go']
 export default function App() {
   const [phase, setPhase] = useState<Phase>('start')
   const [countIndex, setCountIndex] = useState(0)
+  const [cards, setCards] = useState<Card[]>(createCards)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     if (phase !== 'countdown') return
 
+    setCards(createCards())
     setCountIndex(0)
 
     let i = 0
@@ -55,6 +47,21 @@ export default function App() {
     return () => { if (timerRef.current) clearTimeout(timerRef.current) }
   }, [phase])
 
+  useEffect(() => {
+    if (phase !== 'preview') return
+
+    // flip all cards face-up
+    setCards(prev => prev.map(c => ({ ...c, isRevealed: true })))
+
+    timerRef.current = setTimeout(() => {
+      // flip all cards back down then start gameplay
+      setCards(prev => prev.map(c => ({ ...c, isRevealed: false })))
+      timerRef.current = setTimeout(() => setPhase('playing'), 600)
+    }, 3000)
+
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
+  }, [phase])
+
   return (
     <div className="app">
       {phase === 'start' && (
@@ -65,8 +72,11 @@ export default function App() {
         <CountdownOverlay count={SEQUENCE[countIndex]} />
       )}
 
-      {/* TODO: review only — click the card to flip it */}
-      {phase === 'preview' && <FlipTest />}
+      {(phase === 'preview' || phase === 'playing') && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100svh' }}>
+          <GameBoard cards={cards} />
+        </div>
+      )}
     </div>
   )
 }
