@@ -40,7 +40,6 @@
 }
 
 /* "Go" is slightly smaller and gradient-colored */
-.countdown-number:has-text('Go'),
 .countdown-number[data-go='true'] {
   font-size: 120px;
   letter-spacing: -3px;
