@@ -1,3 +1,4 @@
+import { SoundControls } from '../SoundControls/SoundControls'
 import './GameHUD.css'
 
 interface Props {
@@ -5,6 +6,10 @@ interface Props {
   elapsedSeconds: number
   expectedNext:   number
   mistakes:       number
+  volume:         number
+  isMuted:        boolean
+  setVolume:      (v: number) => void
+  toggleMute:     () => void
 }
 
 function formatTime(seconds: number): string {
@@ -13,7 +18,7 @@ function formatTime(seconds: number): string {
   return `${m}:${s}`
 }
 
-export function GameHUD({ score, elapsedSeconds, expectedNext, mistakes }: Props) {
+export function GameHUD({ score, elapsedSeconds, expectedNext, mistakes, volume, isMuted, setVolume, toggleMute }: Props) {
   const progress = expectedNext - 1  // cards correctly found so far
 
   return (
@@ -47,6 +52,12 @@ export function GameHUD({ score, elapsedSeconds, expectedNext, mistakes }: Props
           <span className="hud-label">Time</span>
           <span className="hud-value hud-value--time">{formatTime(elapsedSeconds)}</span>
         </div>
+        <SoundControls
+          volume={volume}
+          isMuted={isMuted}
+          setVolume={setVolume}
+          toggleMute={toggleMute}
+        />
       </div>
     </div>
   )

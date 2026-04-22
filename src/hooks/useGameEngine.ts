@@ -31,7 +31,15 @@ function createCards(): Card[] {
   )
 }
 
-export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
+interface AudioCues {
+  playFlip?:    () => void
+  playCorrect?: () => void
+  playWrong?:   () => void
+  playWin?:     () => void
+  playLose?:    () => void
+}
+
+export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void, audio: AudioCues = {}) {
   const [state, setState] = useState<GameState>({ ...INITIAL, cards: createCards() })
   const intervalRef  = useRef<ReturnType<typeof setInterval>  | null>(null)
   const timeoutRef   = useRef<ReturnType<typeof setTimeout>   | null>(null)
@@ -84,7 +92,8 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
 
     const isCorrect = card.id === expectedNext
 
-    // Step 1 — reveal the card and lock the board immediately
+    // Step 1 — reveal the card, lock the board, play flip sound
+    audio.playFlip?.()
     setState(s => ({
       ...s,
       isLocked: true,
@@ -97,6 +106,7 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
         const newExpected = expectedNext + 1
         const isWon = newExpected > 12
 
+        audio.playCorrect?.()
         setState(s => ({
           ...s,
           expectedNext: newExpected,
@@ -106,11 +116,13 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
         }))
 
         if (isWon) {
+          audio.playWin?.()
           timeoutRef.current = setTimeout(() => setPhase('won'), 600)
         }
       } else {
         const newSupport = Math.max(0, support - 10)
 
+        audio.playWrong?.()
         setState(s => ({
           ...s,
           support: newSupport,
@@ -121,6 +133,7 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
         // Step 3 — after shake animation, reset all cards back down
         timeoutRef.current = setTimeout(() => {
           if (newSupport <= 0) {
+            audio.playLose?.()
             setPhase('lost')
             return
           }
@@ -134,7 +147,7 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
         }, 600)
       }
     }, 400)
-  }, [setPhase])
+  }, [setPhase, audio])
 
   return { ...state, handleCardClick }
 }
