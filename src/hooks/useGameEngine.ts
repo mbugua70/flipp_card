@@ -10,6 +10,7 @@ interface GameState {
   elapsedSeconds: number
   expectedNext:   number   // the card id the player must click next
   isLocked:       boolean  // true during animations — blocks all clicks
+  highestReached: number   // high-water mark: highest card id scored so far
 }
 
 const INITIAL: Omit<GameState, 'cards'> = {
@@ -19,6 +20,7 @@ const INITIAL: Omit<GameState, 'cards'> = {
   elapsedSeconds: 0,
   expectedNext:   1,
   isLocked:       false,
+  highestReached: 0,
 }
 
 function createCards(): Card[] {
@@ -85,7 +87,7 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void, audio:
   }, [phase])
 
   const handleCardClick = useCallback((card: Card) => {
-    const { isLocked, expectedNext, support } = stateRef.current
+    const { isLocked, expectedNext, support, highestReached } = stateRef.current
 
     // Block clicks during animations or on already-handled cards
     if (isLocked || card.isRevealed || card.state !== 'idle') return
@@ -106,18 +108,30 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void, audio:
         const newExpected = expectedNext + 1
         const isWon = newExpected > 12
 
+        // Only award points if this card is a new high-water mark
+        const pointsEarned = card.id > highestReached ? 100 : 0
+
         audio.playCorrect?.()
         setState(s => ({
           ...s,
-          expectedNext: newExpected,
-          score: s.score + 100,
-          isLocked: isWon,
+          expectedNext:   newExpected,
+          score:          s.score + pointsEarned,
+          highestReached: Math.max(s.highestReached, card.id),
+          isLocked:       isWon,
           cards: s.cards.map(c => c.id === card.id ? { ...c, state: 'correct' as const } : c),
         }))
 
         if (isWon) {
           audio.playWin?.()
-          timeoutRef.current = setTimeout(() => setPhase('won'), 600)
+          timeoutRef.current = setTimeout(() => {
+            // Apply time bonus and mistake penalty to final score
+            setState(s => {
+              const timeBonus     = Math.max(0, 2000 - s.elapsedSeconds * 10)
+              const mistakePenalty = s.mistakes * 30
+              return { ...s, score: Math.max(0, s.score + timeBonus - mistakePenalty) }
+            })
+            setPhase('won')
+          }, 600)
         }
       } else {
         const newSupport = Math.max(0, support - 5)
