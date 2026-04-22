@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { StartScreen } from './components/StartScreen/StartScreen'
 import { CountdownOverlay } from './components/CountdownOverlay/CountdownOverlay'
+import { GameCard } from './components/GameCard/GameCard'
 import './App.css'
 
 export type Phase = 'start' | 'countdown' | 'preview' | 'playing' | 'won' | 'lost'
@@ -40,6 +41,14 @@ export default function App() {
 
       {phase === 'countdown' && (
         <CountdownOverlay count={SEQUENCE[countIndex]} />
+      )}
+
+      {/* TODO: review only — two cards side by side, one back one front */}
+      {phase === 'preview' && (
+        <div style={{ display: 'flex', gap: 16, padding: 40, alignItems: 'center' }}>
+          <GameCard card={{ id: 7, isRevealed: false, state: 'idle' }} />
+          <GameCard card={{ id: 7, isRevealed: true,  state: 'idle' }} />
+        </div>
       )}
     </div>
   )
