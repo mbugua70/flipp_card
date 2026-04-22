@@ -15,12 +15,6 @@ const sfx = {
   tick:    new Howl({ src: ['/sounds/tick.wav'],    volume: 0.65, preload: true }),
 }
 
-const music = new Howl({
-  src:     ['/sounds/music.wav'],
-  loop:    true,
-  volume:  0.18,
-  preload: true,
-})
 
 export function useAudio() {
   const [volume, setVolumeState] = useState<number>(() => {
@@ -59,12 +53,6 @@ export function useAudio() {
   const playLose    = useCallback(() => sfx.lose.play(),    [])
   const playTick    = useCallback(() => sfx.tick.play(),    [])
 
-  const startMusic = useCallback(() => {
-    if (!music.playing()) music.play()
-  }, [])
-
-  const stopMusic = useCallback(() => music.stop(), [])
-
   return {
     volume,
     isMuted,
@@ -76,7 +64,5 @@ export function useAudio() {
     playWin,
     playLose,
     playTick,
-    startMusic,
-    stopMusic,
   }
 }

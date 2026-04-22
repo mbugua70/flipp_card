@@ -20,7 +20,7 @@ export default function App() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const { save } = useBestScore()
-  const { volume, isMuted, setVolume, toggleMute, playFlip, playCorrect, playWrong, playWin, playLose, playTick, startMusic, stopMusic } = useAudio()
+  const { volume, isMuted, setVolume, toggleMute, playFlip, playCorrect, playWrong, playWin, playLose, playTick } = useAudio()
   const { cards, score, support, elapsedSeconds, expectedNext, mistakes, handleCardClick } = useGameEngine(phase, setPhase, {
     playFlip, playCorrect, playWrong, playWin, playLose,
   })
@@ -29,12 +29,6 @@ export default function App() {
     if (phase === 'won' || phase === 'lost') {
       save(score, elapsedSeconds, phase === 'won')
     }
-  }, [phase])
-
-  // Music: start on preview, stop when game ends or returns home
-  useEffect(() => {
-    if (phase === 'preview') startMusic()
-    if (phase === 'start' || phase === 'won' || phase === 'lost') stopMusic()
   }, [phase])
 
   // Countdown: 3 → 2 → 1 → Go → preview, with a tick sound on each step

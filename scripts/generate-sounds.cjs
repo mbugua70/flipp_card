@@ -123,32 +123,6 @@ function lose() {
   )
 }
 
-// Ambient music loop: A-minor pad, 8 seconds seamless
-function music() {
-  const dur    = 8
-  const n      = Math.round(SR * dur)
-  const voices = [
-    { freq: 110.00, amp: 0.13, lfoRate: 0.25, lfoDepth: 0.3 },  // A2
-    { freq: 164.81, amp: 0.10, lfoRate: 0.37, lfoDepth: 0.25 }, // E3
-    { freq: 220.00, amp: 0.09, lfoRate: 0.51, lfoDepth: 0.3 },  // A3
-    { freq: 261.63, amp: 0.07, lfoRate: 0.42, lfoDepth: 0.2 },  // C4
-    { freq: 329.63, amp: 0.06, lfoRate: 0.63, lfoDepth: 0.25 }, // E4
-    { freq: 440.00, amp: 0.04, lfoRate: 0.29, lfoDepth: 0.2 },  // A4
-  ]
-  const fadeLen = Math.round(SR * 0.6)
-  return Float32Array.from({ length: n }, (_, i) => {
-    const t       = i / SR
-    const fadeIn  = i < fadeLen ? i / fadeLen : 1
-    const fadeOut = i > n - fadeLen ? (n - i) / fadeLen : 1
-    let   sample  = 0
-    for (const v of voices) {
-      const lfo = 1 - v.lfoDepth + v.lfoDepth * Math.sin(2 * Math.PI * v.lfoRate * t)
-      sample += v.amp * lfo * Math.sin(2 * Math.PI * v.freq * t)
-    }
-    return fadeIn * fadeOut * sample
-  })
-}
-
 // Countdown tick: crisp wood-block style click (~65 ms)
 function tick() {
   const n = Math.round(SR * 0.065)
@@ -174,6 +148,5 @@ writeWav('correct.wav', correct())
 writeWav('wrong.wav',   wrong())
 writeWav('win.wav',     win())
 writeWav('lose.wav',    lose())
-writeWav('music.wav',   music())
 writeWav('tick.wav',    tick())
 console.log('\nDone — files in public/sounds/')
