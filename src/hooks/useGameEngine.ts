@@ -35,6 +35,8 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
   const [state, setState] = useState<GameState>({ ...INITIAL, cards: createCards() })
   const intervalRef  = useRef<ReturnType<typeof setInterval>  | null>(null)
   const timeoutRef   = useRef<ReturnType<typeof setTimeout>   | null>(null)
+  const stateRef     = useRef(state)
+  stateRef.current = state  // always mirrors latest state for use inside callbacks
 
   // Fresh shuffle + full reset whenever a new game starts
   useEffect(() => {
@@ -74,8 +76,67 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void) {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current) }
   }, [phase])
 
-  // Placeholder — click logic added in Step 2
-  const handleCardClick = useCallback((_card: Card) => {}, [])
+  const handleCardClick = useCallback((card: Card) => {
+    const { isLocked, expectedNext, support } = stateRef.current
+
+    // Block clicks during animations or on already-handled cards
+    if (isLocked || card.isRevealed || card.state !== 'idle') return
+
+    const isCorrect = card.id === expectedNext
+
+    // Step 1 — reveal the card and lock the board immediately
+    setState(s => ({
+      ...s,
+      isLocked: true,
+      cards: s.cards.map(c => c.id === card.id ? { ...c, isRevealed: true } : c),
+    }))
+
+    // Step 2 — after flip animation, apply feedback
+    timeoutRef.current = setTimeout(() => {
+      if (isCorrect) {
+        const newExpected = expectedNext + 1
+        const isWon = newExpected > 12
+
+        setState(s => ({
+          ...s,
+          expectedNext: newExpected,
+          score: s.score + 100,
+          isLocked: isWon,
+          cards: s.cards.map(c => c.id === card.id ? { ...c, state: 'correct' as const } : c),
+        }))
+
+        if (isWon) {
+          timeoutRef.current = setTimeout(() => setPhase('won'), 600)
+        }
+      } else {
+        // Penalty shrinks the further into the sequence the player got
+        const penalty = Math.max(10, 20 - Math.floor((expectedNext - 1) / 12 * 10))
+        const newSupport = Math.max(0, support - penalty)
+
+        setState(s => ({
+          ...s,
+          support: newSupport,
+          mistakes: s.mistakes + 1,
+          cards: s.cards.map(c => c.id === card.id ? { ...c, state: 'wrong' as const } : c),
+        }))
+
+        // Step 3 — after shake animation, reset all cards back down
+        timeoutRef.current = setTimeout(() => {
+          if (newSupport <= 0) {
+            setPhase('lost')
+            return
+          }
+
+          setState(s => ({
+            ...s,
+            expectedNext: 1,
+            isLocked: false,
+            cards: s.cards.map(c => ({ ...c, isRevealed: false, state: 'idle' as const })),
+          }))
+        }, 600)
+      }
+    }, 400)
+  }, [setPhase])
 
   return { ...state, handleCardClick }
 }
