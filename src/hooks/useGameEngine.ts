@@ -120,7 +120,7 @@ export function useGameEngine(phase: Phase, setPhase: (p: Phase) => void, audio:
           timeoutRef.current = setTimeout(() => setPhase('won'), 600)
         }
       } else {
-        const newSupport = Math.max(0, support - 10)
+        const newSupport = Math.max(0, support - 5)
 
         audio.playWrong?.()
         setState(s => ({
