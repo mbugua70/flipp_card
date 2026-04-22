@@ -6,6 +6,7 @@ import { GameHUD } from './components/GameHUD/GameHUD'
 import { SupportMeter } from './components/SupportMeter/SupportMeter'
 import { ResultModal } from './components/ResultModal/ResultModal'
 import { useGameEngine } from './hooks/useGameEngine'
+import { useBestScore } from './hooks/useBestScore'
 import type { Phase } from './types/game'
 import './App.css'
 
@@ -17,6 +18,13 @@ export default function App() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const { cards, score, support, elapsedSeconds, expectedNext, mistakes, handleCardClick } = useGameEngine(phase, setPhase)
+  const { save } = useBestScore()
+
+  useEffect(() => {
+    if (phase === 'won' || phase === 'lost') {
+      save(score, elapsedSeconds, phase === 'won')
+    }
+  }, [phase])
 
   // Countdown tick: 3 → 2 → 1 → Go → preview
   useEffect(() => {
@@ -49,7 +57,16 @@ export default function App() {
         <CountdownOverlay count={SEQUENCE[countIndex]} />
       )}
 
-      <ResultModal isOpen={phase === 'won' || phase === 'lost'} />
+      <ResultModal
+        isOpen={phase === 'won' || phase === 'lost'}
+        outcome={phase === 'won' ? 'won' : 'lost'}
+        score={score}
+        elapsedSeconds={elapsedSeconds}
+        mistakes={mistakes}
+        support={support}
+        onPlayAgain={() => setPhase('countdown')}
+        onHome={() => setPhase('start')}
+      />
 
       {(phase === 'preview' || phase === 'playing') && (
         <div className="game-screen">
