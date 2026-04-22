@@ -4,3 +4,19 @@
   flex-direction: column;
   position: relative;
 }
+
+/* Full-screen centered container for the game */
+.game-screen {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+}
+
+/* HUD + board stacked, HUD stretches to board width */
+.game-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

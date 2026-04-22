@@ -48,18 +48,18 @@ export default function App() {
       )}
 
       {(phase === 'preview' || phase === 'playing') && (
-        <>
-          <GameHUD
-            score={score}
-            support={support}
-            elapsedSeconds={elapsedSeconds}
-            expectedNext={expectedNext}
-            mistakes={mistakes}
-          />
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100svh', paddingTop: 64 }}>
+        <div className="game-screen">
+          <div className="game-stack">
+            <GameHUD
+              score={score}
+              support={support}
+              elapsedSeconds={elapsedSeconds}
+              expectedNext={expectedNext}
+              mistakes={mistakes}
+            />
             <GameBoard cards={cards} onCardClick={handleCardClick} />
           </div>
-        </>
+        </div>
       )}
     </div>
   )
